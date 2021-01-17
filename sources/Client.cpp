@@ -11,10 +11,10 @@ Client::Client(asio::io_service& service, const tcp::endpoint& endpoint,
 void Client::login(error_code& error) {
   std::string query = "login " + username_ + ENDLINE;
   socket_.write_some(asio::buffer(query));
-  last_query_time_ = NOW;
 
   asio::streambuf reply;
   asio::read_until(socket_, reply, ENDLINE, error);
+  last_query_time_ = NOW;
 
   std::string reply_str;
   std::istream input(&reply);
@@ -25,10 +25,10 @@ void Client::login(error_code& error) {
 
 void Client::query(std::string const& query, error_code& error) {
   socket_.write_some(asio::buffer(query));
-  last_query_time_ = NOW;
 
   asio::streambuf reply;
   asio::read_until(socket_, reply, ENDLINE, error);
+  last_query_time_ = NOW;
 
   std::string reply_str;
   std::istream input(&reply);
