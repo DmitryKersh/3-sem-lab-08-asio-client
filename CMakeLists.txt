@@ -46,7 +46,7 @@ add_executable(client-exec
 
 target_include_directories(client-lib PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-  "$<INSTALL_INTERFACE:include>"
+  #"$<INSTALL_INTERFACE:include>"
 )
 target_link_libraries(client-lib PUBLIC asio::asio_headeronly Boost::log Boost::filesystem Boost::thread)
 target_link_libraries(client-exec PUBLIC client-lib asio::asio_static)
