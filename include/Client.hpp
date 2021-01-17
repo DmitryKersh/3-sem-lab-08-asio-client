@@ -27,9 +27,11 @@ class Client {
   tcp::socket socket_;
   const std::string username_;
   timetype last_query_time_;
-
+  std::chrono::seconds delay_;
+  inline void reset_delay();
  public:
-  inline bool is_opened() const { return socket_.is_open(); }
+  inline std::chrono::seconds delay() const { return delay_; }
+  [[nodiscard]] inline bool is_opened() const { return socket_.is_open(); }
 
   Client(asio::io_service&, const tcp::endpoint& ep, std::string username);
 

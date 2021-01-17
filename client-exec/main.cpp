@@ -16,7 +16,7 @@ int main() {
   }
 
   std::vector<Client> clients;
-  size_t max_clients = 10;
+  size_t max_clients = 8;
 
   error_code error;
 
@@ -31,12 +31,11 @@ int main() {
   while (std::count_if(clients.begin(), clients.end(),
                        [](Client const& c) { return c.is_opened(); })) {
     for (auto& client : clients) {
-      if (NOW - client.last_query_time() >=
-              std::chrono::seconds(2 + (rand() % (5 * 1'000'000))) &&
+      if (NOW - client.last_query_time() >= client.delay() &&
           client.is_opened()) {
         std::cout << "delay = "
-                  << (NOW - client.last_query_time()).count() / 1'000'000
-                  << " ms" << std::endl;
+                  << client.delay().count()
+                  << " sec" << std::endl;
         client.query("ping\n", error);
       }
     }
