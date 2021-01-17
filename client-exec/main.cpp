@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
   std::cout << "USERS LOGGED IN" << std::endl;
   std::chrono::seconds delay;
   while (std::count_if(clients.begin(), clients.end(),
-                       [](Client const& c) { return c.is_opened(); })){
+                       [](Client const& c) { return c.is_opened(); })) {
     for (auto& client : clients) {
       delay = std::chrono::seconds(2 + rand() % 10);
       if (NOW - client.last_query_time() >= delay) {

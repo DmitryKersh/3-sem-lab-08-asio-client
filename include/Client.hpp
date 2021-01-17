@@ -19,13 +19,15 @@ template <typename StrType1, typename StrType2, typename StrType3>
 void console_log(const StrType1& username, const StrType2& query,
                  const StrType3& reply) {
   std::cout << "[USER] " << username << std::endl
-            << "[QUERY] " << query << "[REPLY] " << reply << std::endl << std::endl;
+            << "[QUERY] " << query << "[REPLY] " << reply << std::endl
+            << std::endl;
 }
 
 class Client {
   tcp::socket socket_;
   const std::string username_;
   timetype last_query_time_;
+
  public:
   inline bool is_opened() const { return socket_.is_open(); }
 

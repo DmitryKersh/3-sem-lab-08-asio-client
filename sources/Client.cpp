@@ -3,12 +3,12 @@
 #include <Client.hpp>
 #include <utility>
 Client::Client(asio::io_service& service, const tcp::endpoint& endpoint,
-               std::string  username)
+               std::string username)
     : socket_(service), username_(std::move(username)) {
   socket_.connect(endpoint);
 }
 
-void Client::login(error_code& error)  {
+void Client::login(error_code& error) {
   std::string query = "login " + username_ + ENDLINE;
   socket_.write_some(asio::buffer(query));
   last_query_time_ = NOW;
@@ -36,15 +36,13 @@ void Client::query(std::string const& query, error_code& error) {
 
   console_log(username_, query, reply_str);
 
-  if (reply_str == "Disconnected by timeout"){
+  if (reply_str == "Disconnected by timeout") {
     close();
     return;
   }
 
-  if (reply_str == "client_list_changed"){
+  if (reply_str == "client_list_changed") {
     this->query("clients\n", error);
   }
 }
-void Client::close() {
-  socket_.close();
-}
+void Client::close() { socket_.close(); }
